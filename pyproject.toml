@@ -17,7 +17,7 @@ dependencies = [
 # If there are data files included in your packages that need to be
 # installed, specify them here.
 # package-data = {"sample" = ["*.dat"]}
-py-modules = ["_custom_build"]
+py-modules = ["_custom_build", "pystruct"]
 
 [tool.setuptools.cmdclass]
 build_py = "_custom_build.build_py"
