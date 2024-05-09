@@ -2,25 +2,40 @@
 name = "pystruct"
 version = "0.3.3"
 description = ""
-authors = [
-]
+authors = []
 requires-python = ">=3.10"
-# For an analysis of this field vs pip's requirements files see:
-# https://packaging.python.org/discussions/install-requires-vs-requirements/
 dependencies = [
     "numpy", "cvxopt", "future", "scikit-learn"
 ]
 
-# This is configuration specific to the `setuptools` build backend.
-# If you are using a different build backend, you will need to change this.
+[project.optional-dependencies]
+examples = [
+    "matplotlib"
+]
+
 [tool.setuptools]
-# If there are data files included in your packages that need to be
-# installed, specify them here.
-# package-data = {"sample" = ["*.dat"]}
-py-modules = ["_custom_build", "pystruct"]
+py-modules = ["_custom_build"]
 
 [tool.setuptools.cmdclass]
 build_py = "_custom_build.build_py"
 
+[tool.setuptools.packages.find]
+where = ["."]
+
+[tool.pixi.tasks]
+example = "python examples/plot_binary_svm.py"
+
 [build-system]
 requires = ["setuptools", "wheel", "Cython", "numpy"]
+
+[tool.pixi.project]
+channels = ["conda-forge"]
+platforms = ["linux-64"]
+
+[tool.pixi.pypi-dependencies]
+pystruct = { path = ".", editable = true }
+
+[tool.pixi.environments]
+default = { solve-group = "default" }
+# $ pixi run --environment examples example
+examples = { features = ["examples"], solve-group = "default" }
