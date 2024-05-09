@@ -4,7 +4,7 @@ from scipy import sparse
 try:
     from sklearn.model_selection import train_test_split
 except ImportError:
-    from sklearn.cross_validation import train_test_split
+    from sklearn.model_selection import train_test_split
 
 from scipy.sparse.csgraph import minimum_spanning_tree
 

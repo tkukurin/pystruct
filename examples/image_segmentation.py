@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 """
 ===========================================
 Semantic Image Segmentation on Pascal VOC

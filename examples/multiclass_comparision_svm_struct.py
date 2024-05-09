@@ -17,7 +17,7 @@ is much faster than either one.
 
 For SVM^struct, the plot show CPU time as reportet by SVM^struct.
 For pystruct, the plot shows the time spent in the fit function
-according to time.clock.
+according to time.time.
 
 Both models have disabled constraint caching. With constraint caching,
 SVM^struct is somewhat faster, but PyStruct doesn't gain anything.
@@ -25,16 +25,16 @@ SVM^struct is somewhat faster, but PyStruct doesn't gain anything.
 
 import tempfile
 import os
-from time import clock
+from time import time
 
 import numpy as np
 from sklearn.datasets import dump_svmlight_file
-from sklearn.datasets import fetch_mldata, load_iris, load_digits
+from sklearn.datasets import fetch_openml, load_iris, load_digits
 from sklearn.metrics import accuracy_score
 try:
     from sklearn.model_selection import train_test_split
 except ImportError:
-    from sklearn.cross_validation import train_test_split
+    from sklearn.model_selection import train_test_split
 import matplotlib.pyplot as plt
 
 from pystruct.models import MultiClassClf
@@ -91,12 +91,12 @@ def eval_on_data(X_train, y_train, X_test, y_test, svm, Cs):
     accuracies, times = [], []
     for C in Cs:
         svm.C = C
-        start = clock()
+        start = time()
         svm.fit(X_train, y_train)
         if hasattr(svm, "runtime_"):
             times.append(svm.runtime_)
         else:
-            times.append(clock() - start)
+            times.append(time() - start)
         accuracies.append(accuracy_score(y_test, svm.predict(X_test)))
     return accuracies, times
 
@@ -161,7 +161,7 @@ def main():
 
     # USPS
     if 'usps' in datasets:
-        digits = fetch_mldata("USPS")
+        digits = fetch_openml("USPS")
         X, y = digits.data, digits.target.astype(np.int) - 1
         X_train, X_test, y_train, y_test = train_test_split(X, y,
                                                             random_state=0)
@@ -169,7 +169,7 @@ def main():
 
     # MNIST
     if 'mnist' in datasets:
-        digits = fetch_mldata("MNIST original")
+        digits = fetch_openml("MNIST original")
         X, y = digits.data / 255., digits.target.astype(np.int)
         X_train, X_test = X[:60000], X[60000:]
         y_train, y_test = y[:60000], y[60000:]

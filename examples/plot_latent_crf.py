@@ -18,7 +18,7 @@ import matplotlib.pyplot as plt
 try:
     from sklearn.model_selection import train_test_split
 except ImportError:
-    from sklearn.cross_validation import train_test_split
+    from sklearn.model_selection import train_test_split
 
 from pystruct.models import LatentGridCRF
 from pystruct.learners import LatentSSVM, OneSlackSSVM
