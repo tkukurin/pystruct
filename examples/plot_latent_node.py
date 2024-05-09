@@ -44,7 +44,7 @@ def plot_boxes(boxes, size=4, title=""):
 X, Y = make_simple_2x2(seed=1)
 
 # flatten X and Y
-X_flat = [x.reshape(-1, 1).astype(np.float) for x in X]
+X_flat = [x.reshape(-1, 1).astype(np.double) for x in X]
 Y_flat = [y.ravel() for y in Y]
 
 
