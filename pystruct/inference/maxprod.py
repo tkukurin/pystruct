@@ -51,9 +51,9 @@ def inference_max_product(unary_potentials, pairwise_potentials, edges,
     n_states, pairwise_potentials = \
         _validate_params(unary_potentials, pairwise_potentials, edges)
     if is_chain(edges=edges, n_vertices=len(unary_potentials)):
-        y = viterbi(unary_potentials.astype(np.float).copy(),
+        y = viterbi(unary_potentials.astype(np.double).copy(),
                     # sad second copy b/c numpy 1.6
-                    np.array(pairwise_potentials, dtype=np.float))
+                    np.array(pairwise_potentials, dtype=np.double))
     elif is_forest(edges=edges, n_vertices=len(unary_potentials)):
         y = tree_max_product(unary_potentials, pairwise_potentials, edges)
     else:

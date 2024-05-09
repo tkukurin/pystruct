@@ -157,7 +157,7 @@ class OneSlackSSVM(BaseSSVM):
         self.switch_to = switch_to
 
     def _solve_1_slack_qp(self, constraints, n_samples):
-        C = np.float(self.C) * n_samples  # this is how libsvm/svmstruct do it
+        C = np.double(self.C) * n_samples  # this is how libsvm/svmstruct do it
         joint_features = [c[0] for c in constraints]
         losses = [c[1] for c in constraints]
 
@@ -165,7 +165,7 @@ class OneSlackSSVM(BaseSSVM):
         n_constraints = len(joint_features)
         P = cvxopt.matrix(np.dot(joint_feature_matrix, joint_feature_matrix.T))
         # q contains loss from margin-rescaling
-        q = cvxopt.matrix(-np.array(losses, dtype=np.float))
+        q = cvxopt.matrix(-np.array(losses, dtype=np.double))
         # constraints: all alpha must be >zero
         idy = np.identity(n_constraints)
         tmp1 = np.zeros(n_constraints)

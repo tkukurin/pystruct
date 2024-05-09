@@ -143,11 +143,11 @@ class NSlackSSVM(BaseSSVM):
         joint_features = [c[1] for sample in constraints for c in sample]
         losses = [c[2] for sample in constraints for c in sample]
 
-        joint_feature_matrix = np.vstack(joint_features).astype(np.float)
+        joint_feature_matrix = np.vstack(joint_features).astype(np.double)
         n_constraints = len(joint_features)
         P = cvxopt.matrix(np.dot(joint_feature_matrix, joint_feature_matrix.T))
         # q contains loss from margin-rescaling
-        q = cvxopt.matrix(-np.array(losses, dtype=np.float))
+        q = cvxopt.matrix(-np.array(losses, dtype=np.double))
         # constraints are a bit tricky. first, all alpha must be >zero
         idy = np.identity(n_constraints)
         tmp1 = np.zeros(n_constraints)

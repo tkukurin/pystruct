@@ -28,7 +28,7 @@ def test_multinomial_blocks():
 
 def test_xor():
     """Test perceptron behaviour against hand-computed values for XOR"""
-    X = np.array([[a, b, 1] for a in (-1, 1) for b in (-1, 1)], dtype=np.float)
+    X = np.array([[a, b, 1] for a in (-1, 1) for b in (-1, 1)], dtype=np.double)
     Y = np.array([-1, 1, 1, -1])
     # Should cycle weight vectors (1, 1, -1), (0, 2, 0), (1, 1, 1), (0, 0, 0)
     # but this depends on how ties are settled.  Maybe the test can be
@@ -54,7 +54,7 @@ def test_xor():
 
 def test_partial_averaging():
     """Use XOR weight cycling to test partial averaging"""
-    X = np.array([[a, b, 1] for a in (-1, 1) for b in (-1, 1)], dtype=np.float)
+    X = np.array([[a, b, 1] for a in (-1, 1) for b in (-1, 1)], dtype=np.double)
     Y = np.array([-1, 1, 1, -1])
     pcp = StructuredPerceptron(model=BinaryClf(n_features=3), max_iter=5,
                                decay_exponent=1, decay_t0=1)
@@ -72,7 +72,7 @@ def test_partial_averaging():
 def test_averaging_early_stopping():
     """Test averaging over final epoch when early stopping"""
     # we use logical OR, an easy problem solved after the second epoch
-    X = np.array([[a, b, 1] for a in (-1, 1) for b in (-1, 1)], dtype=np.float)
+    X = np.array([[a, b, 1] for a in (-1, 1) for b in (-1, 1)], dtype=np.double)
     Y = np.array([-1, 1, 1, 1])
     pcp = StructuredPerceptron(model=BinaryClf(n_features=3), max_iter=3,
                                average=-1)
